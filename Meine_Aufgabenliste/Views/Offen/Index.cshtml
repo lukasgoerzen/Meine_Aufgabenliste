@@ -1,4 +1,10 @@
-﻿<title>@ViewData["Title"] - Meine Aufgabenliste</title>
+﻿@model List<Meine_Aufgabenliste.Models.ToDo>
+
+@{
+    ViewData["Title"] = "Meine Aufgabenliste";
+}
+
+<title>@ViewData["Title"] - Meine Aufgabenliste</title>
 
 <div class="container">
     <div class="row">
@@ -25,17 +31,16 @@
         </thead>
 
         <tbody>
-            @{
-                // foreach (ToDo toDo in ViewBag.ToDos) {
+            @foreach (var toDo in ViewBag.ToDos) {
                 <tr>
-                    <td>toDo.Id</td>
-                    <td>Kategorie</td>
-                    <td>Schlüsselwort</td>
-                    <td>toDo.Aufgabe</td>
-                    <td>toDo.Beschreibung</td>
-                    <td>Lösung</td>
-                    <td>Verantwortlich</td>
-                    <td>Status</td>
+                    <td>@toDo.Id</td>
+                    <td>@toDo.Kategorie</td>
+                    <td>@toDo.Schluesselwort</td>
+                    <td>@toDo.Aufgabe</td>
+                    <td>@toDo.Beschreibung</td>
+                    <td>@toDo.Loesung</td>
+                    <td>@toDo.Verantwortlich</td>
+                    <td>@toDo.Status</td>
                     <td>
                         <div class="col mb-2">
                             <div class="d-flex">
@@ -55,52 +60,16 @@
                 </tr>
             }
         </tbody>
-
-        <tfoot>
-            <tr class="table">
-                <form asp-action="CreateTodo" method="post">
-                    <td>
-                        <input hidden type="number" id="id" value=""/>
-                    </td>
-                    <td>
-                        <input placeholder="Kategorie" class="form-control" />
-                    </td>
-                    <td>
-                        <input placeholder="Schlüsselwort" class="form-control" />
-                    </td>
-                    <td>
-                        <input placeholder="Aufgabe" class="form-control" />
-                    </td>
-                    <td>
-                        <input placeholder="Beschreibung" class="form-control" />
-                    </td>
-                    <td>
-                        <input placeholder="Lösung" class="form-control" />
-                    </td>
-                    <td>
-                        <select class="form-select">
-                            <option selected value="default">Bitte auswählen</option>
-                            <option value="Emilia">Emilia Groth</option>
-                            <option value="Lukas">Lukas Görzen</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select class="form-select">
-                            <option hidden value="default">Bitte auswählen</option>
-                            <option value="offen">Offen</option>
-                            <option value="inBearbeitung">in Bearbeitung</option>
-                            <option value="wartend">Wartend</option>
-                            <option value="abgeschlossen">Abeschlossen</option>
-                            <option value="archiviert">Archiviert</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="btn btn-success" type="submit">
-                            <i class="bi bi-plus-circle"></i>
-                        </button>
-                    </td>
-                </form>
-            </tr>
-        </tfoot>
     </table>
+    <div class="container">
+        <div class="row">
+            <div class="col offset-6 mb-3"
+                <form asp-action="CreateToDo">
+                    <a href="@Url.Action("CreateToDo", "Offen")" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

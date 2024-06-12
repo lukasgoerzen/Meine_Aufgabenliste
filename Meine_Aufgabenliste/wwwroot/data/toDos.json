@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "Kategorie": "Laufender Betrieb",
+    "Schluesselwort": "Zahlungen",
+    "Aufgabe": "Beispielaufgabe",
+    "Beschreibung": "Dies ist eine Beispielbeschreibung.",
+    "Loesung": "Beispiell\u00F6sung",
+    "Verantwortlich": "Emilia Groth",
+    "Status": "Offen"
+  },
+  {
+    "Id": 2,
+    "Kategorie": "2",
+    "Schluesselwort": "2",
+    "Aufgabe": "Zahlungstask erneut ausgefallen",
+    "Beschreibung": "Zahlungen sind ausgefallen, siehe Mail von Jenny vom 12.06.2024\r\nlaut Log-File Socket nicht installiert\r\nZahlungen sollen manuell nachgeholt werden und Ursache erfragt werden",
+    "Loesung": "Ticket beauftragt, siehe #123456\r\nUrsache nicht bekannt\r\nZahlungen manuell nachgeholt",
+    "Verantwortlich": "Lukas G\u00F6rzen",
+    "Status": "abgeschlossen"
+  },
+  {
+    "Id": 3,
+    "Kategorie": "Bitte ausw\u00E4hlen",
+    "Schluesselwort": "Bitte ausw\u00E4hlen",
+    "Aufgabe": null,
+    "Beschreibung": null,
+    "Loesung": null,
+    "Verantwortlich": "Bitte ausw\u00E4hlen",
+    "Status": "Bitte ausw\u00E4hlen"
+  }
+]
