@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Meine_Aufgabenliste</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Meine_Aufgabenliste.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center mb-5">Meine offenen ToDos</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-light table-hover table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Kategorie</th>
+                    <th>Schlüsselwort</th>
+                    <th>Aufgabe</th>
+                    <th>Beschreibung</th>
+                    <th>Lösung</th>
+                    <th>Verantwortlich</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    // foreach (ToDo toDo in ViewBag.ToDos) {
+                    <tr>
+                        <td>toDo.Id</td>
+                        <td>Kategorie</td>
+                        <td>Schlüsselwort</td>
+                        <td>toDo.Aufgabe</td>
+                        <td>toDo.Beschreibung</td>
+                        <td>Lösung</td>
+                        <td>Verantwortlich</td>
+                        <td>Status</td>
+                        <td>
+                            <div class="col mb-2">
+                                <div class="d-flex">
+                                    <form asp-action="EditToDo" asp-route-id="toDo.Id" class="me-2">
+                                        <button class="btn btn-secondary" type="submit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                    </form>
+                                    <form asp-action="DeleteToDo" asp-route-id="toDo.Id">
+                                        <button class="btn btn-danger" type="submit">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                }
+            </tbody>
+
+            <tfoot>
+                <tr class="table">
+                    <form asp-action="CreateEditToDo" method="post">
+                    <td><input hidden /></td>
+                    <td><input placeholder="Aufgabe" class="form-control" /></td>
+                    <td><input placeholder="Beschreibung" class="form-control" /></td>
+                    <td>
+                        <button class="btn btn-success" type="submit">
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </td>
+                    </form>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+</html>
