@@ -1,8 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<body class="bg-secondary bg-gradient">
+    <div class="text-center">
+        <h1 class="display-4 mb-5">Meine Aufgabenliste</h1>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <form asp-action="ShowResults" method="get">
+        <div class="row">
+            <div class="col offset-3 input-group">
+                <i class="bi bi-search input-group-text"></i>
+                <input type="search" class="form-control" name="suchbegriff" placeholder="Wonach suchst du?" />
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Suchen</button>
+            </div>
+        </div>
+    </form>
+</body>
+

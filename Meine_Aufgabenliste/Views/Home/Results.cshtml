@@ -1,38 +1,30 @@
-﻿@using Meine_Aufgabenliste.Models.Enums
-@using Meine_Aufgabenliste.Models.Extensions
-@model List<Meine_Aufgabenliste.Models.ToDo>
-
-@{
-    ViewData["Title"] = "Meine Aufgabenliste";
+﻿@{
+    ViewData["Title"] = "Home Page";
 }
+<body class="bg-dark bg-gradient">
+<div class="text-center">
+    <h1 class="display-4 mb-5">Meine Aufgabenliste</h1>
+</div>
 
-<title>@ViewData["Title"] - Meine Aufgabenliste</title>
-<body class="bg-secondary bg-gradient">
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center mb-4">Offene Aufgaben</h1>
+<div class="container mb-5">
+    <form asp-action="SearchToDos" method="get">
+        <div class="row">
+            <div class="col offset-3 input-group">
+                <i class="bi bi-search input-group-text"></i>
+                <input type="search" class="form-control" placeholder="Wonach suchst du?" />
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Suchen</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
-
-<!-- Button um neues ToDo zu erstellen-->
-<div class="container mb-3">
-    <div class="row">
-        <div class="col align-self-center"
-        <form asp-action="CreateEditToDo">
-            <a href="@Url.Action("CreateToDo", "Offen")" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i>
-            </a>
-        </form>
-    </div>
-    </div>
-</div>
+    
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var toDo in ViewBag.ToDos) {
         <div class="col mb-4">
-            <form asp-action="CreateEditToDo" method="post">
+            <form asp-action="EditToDo" method="post">
                 <div class="card h-100 shadow border-secondary">
                     <div class=" card-header text-muted bg-danger bg-gradient">
                         <div class="row text-light">

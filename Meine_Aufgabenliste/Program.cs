@@ -1,3 +1,4 @@
+using Meine_Aufgabenliste.Controllers.Services;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddAuthorization(options => {
     options.FallbackPolicy = options.DefaultPolicy;
 });
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<IToDoService, ToDoService>();
 
 var app = builder.Build();
 

@@ -1,32 +1,42 @@
 [
   {
     "Id": 1,
-    "Kategorie": "Laufender Betrieb",
-    "Schluesselwort": "Zahlungen",
-    "Aufgabe": "Beispielaufgabe",
-    "Beschreibung": "Dies ist eine Beispielbeschreibung.",
-    "Loesung": "Beispiell\u00F6sung",
-    "Verantwortlich": "Emilia Groth",
-    "Status": "Offen"
+    "Kategorie": 0,
+    "Schluesselwort": 2,
+    "Aufgabe": "Zahlungstask erneut ausgefallen",
+    "Beschreibung": "Zahlungen laut autom. Mail von gestern Nacht ausgefallen\r\nJenny wei\u00DF Bescheid\r\nZahlungen sollen manuell durchgef\u00FChrt werden",
+    "Loesung": "Ticket erstellt, #123456",
+    "Verantwortlich": 1,
+    "Status": "Wartend"
   },
   {
     "Id": 2,
-    "Kategorie": "2",
-    "Schluesselwort": "2",
-    "Aufgabe": "Zahlungstask erneut ausgefallen",
-    "Beschreibung": "Zahlungen sind ausgefallen, siehe Mail von Jenny vom 12.06.2024\r\nlaut Log-File Socket nicht installiert\r\nZahlungen sollen manuell nachgeholt werden und Ursache erfragt werden",
-    "Loesung": "Ticket beauftragt, siehe #123456\r\nUrsache nicht bekannt\r\nZahlungen manuell nachgeholt",
-    "Verantwortlich": "Lukas G\u00F6rzen",
-    "Status": "abgeschlossen"
+    "Kategorie": 1,
+    "Schluesselwort": 3,
+    "Aufgabe": "Neue Version testen",
+    "Beschreibung": "FB I hat schon getestet\r\nWollen neue Version am 21.06. produktiv nehmen",
+    "Loesung": "Test in VIII 4 abschlie\u00DFen",
+    "Verantwortlich": 0,
+    "Status": "in Bearbeitung"
   },
   {
     "Id": 3,
-    "Kategorie": "Bitte ausw\u00E4hlen",
-    "Schluesselwort": "Bitte ausw\u00E4hlen",
-    "Aufgabe": null,
-    "Beschreibung": null,
-    "Loesung": null,
-    "Verantwortlich": "Bitte ausw\u00E4hlen",
-    "Status": "Bitte ausw\u00E4hlen"
+    "Kategorie": 0,
+    "Schluesselwort": 2,
+    "Aufgabe": "Zahlungen wieder ausgefallen",
+    "Beschreibung": "Wieso nur?",
+    "Loesung": "Wei\u00DF man nicht.",
+    "Verantwortlich": 1,
+    "Status": "Offen"
+  },
+  {
+    "Id": 4,
+    "Kategorie": 0,
+    "Schluesselwort": 1,
+    "Aufgabe": "Schon wieder...",
+    "Beschreibung": "Zahlungsausfall",
+    "Loesung": "...",
+    "Verantwortlich": 0,
+    "Status": "in Bearbeitung"
   }
 ]

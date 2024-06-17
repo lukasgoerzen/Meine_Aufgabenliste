@@ -1,15 +1,15 @@
 ﻿@using Meine_Aufgabenliste.Models.Enums
 @using Meine_Aufgabenliste.Models.Extensions
 @model Meine_Aufgabenliste.Models.ToDo
-@{
-    var toDo = ViewBag.toDo as ToDo;
+@{ 
+    var toDo = ViewBag.toDo as ToDo; 
     var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
     var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
     var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlich)).Cast<Verantwortlich>();
 }
 
 <!-- Formular mit allen Einträgen für neues ToDo -->
-<form asp-action="AddToDo" method="post" class="needs-validation" novalidate>
+<form asp-action="UpdateToDo" method="post" class="needs-validation" novalidate>
     <div class="card text-center container bg-dark">
         <div class="card-header bg-dark mb-3 mt-3">
             <div class="row">
@@ -17,8 +17,12 @@
                     <div class="form-floating">
                         <select class="form-select" name="Kategorie" id="Kategorie" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
+                            <option selected value="@toDo.Kategorie">@toDo.Kategorie</option>
                             @{
-                                foreach (var kategorie in alleKategorien) {
+                                foreach(var kategorie in alleKategorien) {
+                                    // überspringe gespeicherten Wert, um Dopplung zu verhindern
+                                    if (kategorie.Equals(toDo.Kategorie)) continue;
+
                                     <option value="@kategorie">@kategorie</option>
                                 }
                             }
@@ -29,9 +33,13 @@
                 <div class="col align-self-center">
                     <div class="form-floating">
                         <select class="form-select" name="Schluesselwort" id="Schluesselwort" aria-label="Floating label select example" required>
-                            <option selected disabled value="">Bitte auswählen</option>
+                            <option disabled value="">Bitte auswählen</option>
+                            <option selected value="@toDo.Schluesselwort">@toDo.Schluesselwort</option>
                             @{
                                 foreach (var schluesselwort in alleSchluesselwoerter) {
+                                    // überspringe gespeicherten Wert, um Dopplung zu verhindern
+                                    if (schluesselwort.Equals(toDo.Schluesselwort)) continue;
+
                                     <option value="@schluesselwort">@schluesselwort</option>
                                 }
                             }
@@ -41,7 +49,7 @@
                 </div>
                 <div class="col align-self-end">
                     <div class="form-floating">
-                        <input readonly type="number" class="form-control" name="Id" id="Id" placeholder="Id" value="@ViewBag.NeueId" required />
+                        <input readonly type="number" class="form-control" name="Id" id="Id" placeholder="Id" value="@toDo.Id" required />
                         <label for="Id">Id</label>
                     </div>
                 </div>
@@ -49,15 +57,15 @@
         </div>
         <div class="card-body bg-dark bg-gradient mb-3">
             <div class="form-floating">
-                <input class="form-control mb-3" placeholder="Aufgabe" name="Aufgabe" id="Aufgabe" required />
+                <input class="form-control mb-3" placeholder="Aufgabe" name="Aufgabe" id="Aufgabe" required value="@toDo.Aufgabe"/>
                 <label for="Aufgabe">Aufgabe</label>
             </div>
             <div class="form-floating">
-                <textarea class="form-control mb-3" placeholder="Beschreibung" name="Beschreibung" id="Beschreibung" style="height: 100px" required></textarea>
+                <textarea class="form-control mb-3" placeholder="Beschreibung" name="Beschreibung" id="Beschreibung" style="height: 100px" required>@toDo.Beschreibung</textarea>
                 <label for="Beschreibung">Beschreibung</label>
             </div>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Lösung" name="Loesung" id="Loesung" style="height: 100px"></textarea>
+                <textarea class="form-control" placeholder="Lösung" name="Loesung" id="Loesung" style="height: 100px">@toDo.Loesung</textarea>
                 <label for="Loesung">Lösung</label>
             </div>
         </div>
@@ -67,8 +75,12 @@
                     <div class="form-floating">
                         <select class="form-select" name="Verantwortlich" id="Verantwortlich" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
+                            <option selected value="@toDo.Verantwortlich">@toDo.Verantwortlich</option>
                             @{
                                 foreach (var verantwortlicher in alleVerantwortlichen) {
+                                    // überspringe gespeicherten Wert, um Dopplung zu verhindern
+                                    if (verantwortlicher.Equals(toDo.Verantwortlich)) continue;
+
                                     <option value="@verantwortlicher">@verantwortlicher</option>
                                 }
                             }
@@ -82,7 +94,7 @@
                 <div class="col">
                     <div class="form-floating">
                         <select class="form-select" name="Status" id="Status" aria-label="Floating label select example" required>
-                            <option selected disabled value="">Bitte auswählen</option>
+                            <option selected disabled value="">@toDo.Status</option>
                             <option value="Offen">Offen</option>
                             <option value="in Bearbeitung">in Bearbeitung</option>
                             <option value="Wartend">Wartend</option>

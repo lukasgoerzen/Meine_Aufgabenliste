@@ -1,0 +1,180 @@
+﻿@model List<Meine_Aufgabenliste.Models.ToDo>
+
+@{
+    ViewData["Title"] = "Meine Aufgabenliste";
+}
+
+<title>@ViewData["Title"] - Meine Aufgabenliste</title>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mb-4">Offene Aufgaben</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Button um neues ToDo zu erstellen-->
+<div class="container mb-3">
+    <div class="row">
+        <div class="col align-self-center"
+            <form asp-action="CreateToDo">
+                <a href="@Url.Action("CreateToDo", "Offen")" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i>
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var toDo in ViewBag.ToDos) {
+        <div class="col mb-4">
+            <form asp-action="EditToDo" method="post">
+                <div class="card h-100 shadow">
+                    <div class=" card-header text-muted bg-danger bg-gradient">
+                        <div class="row text-light">
+                            <div class="col text-start">
+                                <small><i># @toDo.Id</i></small>
+                            </div>
+                            <div class="col text-start">
+                                <small><i>@toDo.Schluesselwort</i></small>
+                            </div>
+                            <div class="col text-end">
+                                <small><i>@toDo.Kategorie</i></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body bg-light bg-gradient">
+                        <h5 class="card-title">
+                            <div class="row">
+                                <div class="col-10">
+                                    <u>@toDo.Aufgabe</u>
+                                </div>
+                                <div class="col text-end">
+                                    <button type="submit" class="btn btn-secondary btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </h5>
+                        <p class="card-text">@toDo.Beschreibung</p>
+                        <hr><p class="card-text">@toDo.Loesung</p>
+                    </div>
+                    <div class="card-footer bg-dark bg-gradient">
+                        <div class="row">
+                            <div class="col">
+                                <small class="text-muted">
+                                    <select class="form-select editable" name="Verantwortlich" id="Verantwortlich">
+                                        <option hidden selected value="@toDo.Verantwortlich">@toDo.Verantwortlich</option>
+                                        <option value="Emilia">Emilia</option>
+                                        <option value="Lukas">Lukas</option>
+                                    </select>
+                                </small>
+                            </div>
+                            <div class="col">
+                                <small class="text-muted">
+                                    <select class="form-select editable" name="Status" id="Status_Id">
+                                        <option hidden selected value="@toDo.Status">@toDo.Status</option>
+                                        <option value="Offen">Offen</option>
+                                        <option value="in Bearbeitung">in Bearbeitung</option>
+                                        <option value="Wartend">Wartend</option>
+                                        <option value="Abgeschlossen">Abgeschlossen</option>
+                                        <option value="Archiv">Archiv</option>
+                                    </select>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Versteckte Eingabefelder, damit die Daten per POST-Methode gesendet werden -->
+                <input type="hidden" name="Id" value="@toDo.Id" />
+                <input type="hidden" name="Kategorie" value="@toDo.Kategorie" />
+                <input type="hidden" name="Schluesselwort" value="@toDo.Schluesselwort" />
+                <input type="hidden" name="Aufgabe" value="@toDo.Aufgabe" />
+                <input type="hidden" name="Beschreibung" value="@toDo.Beschreibung" />
+                <input type="hidden" name="Loesung" value="@toDo.Loesung" />
+                <input type="hidden" name="Schluesselwort" value="@toDo.Schluesselwort" />
+            </form>
+        </div>
+    }
+    <div class="col">
+        <div class="card h-100">
+            <a>Kategorie & Schlüsselwort</a>
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer row">
+                <div class="col">
+                    <small class="text-muted">
+                        <select class="form-select editable" name="Verantwortlich" id="Verantwortlich">
+                            <option hidden selected>Verantwortlich</option>
+                            <option value="Emilia">Emilia</option>
+                            <option value="Lukas">Lukas</option>
+                        </select>
+                    </small>
+                </div>
+                <div class="col">
+                    <small class="text-muted">
+                        <select class="form-select editable" name="Status" id="Status_Id">
+                            <option hidden selected>Status</option>
+                            <option value="Offen">Offen</option>
+                            <option value="in Bearbeitung">in Bearbeitung</option>
+                            <option value="Wartend">Wartend</option>
+                            <option value="Abgeschlossen">Abgeschlossen</option>
+                            <option value="Archiv">Archiv</option>
+                        </select>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <a>Kategorie & Schlüsselwort</a>
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer row">
+                <div class="col">
+                    <small class="text-muted">
+                        <select class="form-select editable" name="Verantwortlich" id="Verantwortlich">
+                            <option hidden selected>Verantwortlich</option>
+                            <option value="Emilia">Emilia</option>
+                            <option value="Lukas">Lukas</option>
+                        </select>
+                    </small>
+                </div>
+                <div class="col">
+                    <small class="text-muted">
+                        <select class="form-select editable" name="Status" id="Status_Id">
+                            <option hidden selected>Status</option>
+                            <option value="Offen">Offen</option>
+                            <option value="in Bearbeitung">in Bearbeitung</option>
+                            <option value="Wartend">Wartend</option>
+                            <option value="Abgeschlossen">Abgeschlossen</option>
+                            <option value="Archiv">Archiv</option>
+                        </select>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+</div>
