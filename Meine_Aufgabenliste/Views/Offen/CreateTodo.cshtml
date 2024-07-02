@@ -2,10 +2,10 @@
 @using Meine_Aufgabenliste.Models.Extensions
 @model Meine_Aufgabenliste.Models.ToDo
 @{
-    var toDo = ViewBag.toDo as ToDo;
     var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
     var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
     var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlich)).Cast<Verantwortlich>();
+    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
 }
 
 <!-- Formular mit allen Einträgen für neues ToDo -->
@@ -83,11 +83,11 @@
                     <div class="form-floating">
                         <select class="form-select" name="Status" id="Status" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
-                            <option value="Offen">Offen</option>
-                            <option value="in Bearbeitung">in Bearbeitung</option>
-                            <option value="Wartend">Wartend</option>
-                            <option value="Abgeschlossen">Abgeschlossen</option>
-                            <option value="Archiv">Archiv</option>
+                            @{
+                                foreach (var status in alleStati) {
+                                    <option value="@status">@status</option>
+                                }
+                            }
                         </select>
                         <label for="Status">Status</label>
                     </div>

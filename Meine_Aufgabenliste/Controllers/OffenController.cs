@@ -22,16 +22,6 @@ namespace Meine_Aufgabenliste.Controllers {
             return View();
         }
 
-        public IActionResult CreateToDo() {
-
-            // Lade gespeicherte ToDos, um die nächste (freie) Id ermitteln zu können
-            var bestehendeToDos = _toDoService.LoadToDos();
-            int neueId = bestehendeToDos.Count + 1; // Id für neues ToDo
-            ViewBag.NeueId = neueId;
-
-            return View();
-        }
-
         [HttpPost]
         public IActionResult AddToDo(ToDo toDo) {
 
@@ -47,36 +37,30 @@ namespace Meine_Aufgabenliste.Controllers {
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public IActionResult CreateEditToDo(ToDo toDo) {
+        public IActionResult CreateEditToDo(int? id) {
 
             // Lade gespeicherte ToDos
             var bestehendeToDos = _toDoService.LoadToDos();
 
             // Erstelle neues ToDo
-            if (toDo == null) {
+            if (id == null) {
                 int neueId = bestehendeToDos.Count + 1; // Id für neues ToDo
-                ViewBag.NeueId = toDo;
+                ViewBag.NeueId = neueId;
                 return View("CreateToDo");
             }
 
             // Bearbeite ausgewähltes ToDo
             else {
-                int index = toDo.Id - 1; // ToDos Id beginnt bei 1, List jedoch bei 0, daher um 1 subtrahieren
+				var toDo = bestehendeToDos.FirstOrDefault(t => t.Id == id);
 
-                if (index >= 0 && index < bestehendeToDos.Count) {
-                    ViewBag.toDo = bestehendeToDos[index];
-                }
-                else {
-                    // Falls die ID ungültig ist, handle den Fehler entsprechend
-                    ViewBag.Error = "Ungültige ToDo-ID.";
-                    return View("Error"); // Zeige eine Fehlerseite oder Nachricht an
-                }
+				if (toDo == null) {
+					ViewBag.Error = "Ungültige ToDo-ID.";
+					return View("Error");
+				}
 
-                return View("EditToDo");
-            }
-
-            
+				ViewBag.ToDo = toDo;
+				return View("EditToDo");
+			}
         }
 
         [HttpPost]
@@ -87,8 +71,39 @@ namespace Meine_Aufgabenliste.Controllers {
 
             int index = toDo.Id - 1; // Da erste Id = 1, in der List jedoch = 0, muss um eins subtrahiert werden
 
-            bestehendeToDos[index] = toDo;
+			if (index <= -1) {
+				ViewBag.Error = "Ungültige ToDo-ID.";
+				return View("Error");
+			}
+
+			bestehendeToDos[index] = toDo;
             _toDoService.SaveToDos(bestehendeToDos);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult AddUpdateToDo(ToDo toDo) {
+
+            // Lade gespeicherte ToDos
+            var bestehendeToDos = _toDoService.LoadToDos();
+
+            int index = toDo.Id - 1; // Da erste Id = 1, in der List jedoch = 0, muss um eins subtrahiert werden
+
+            // Neues ToDo erstellen
+            if (bestehendeToDos[index] == null) {
+                // Hinzufügen der neuen ToDos
+                bestehendeToDos.Add(toDo);
+
+                // Speicher aktualisierte Liste in JSON-Datei
+                _toDoService.SaveToDos(bestehendeToDos);
+            }
+
+            // Bestehendes ToDo ändern
+            else {
+                bestehendeToDos[index] = toDo;
+                _toDoService.SaveToDos(bestehendeToDos);
+            }
 
             return RedirectToAction("Index");
         }

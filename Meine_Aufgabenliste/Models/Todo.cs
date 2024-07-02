@@ -11,6 +11,6 @@ namespace Meine_Aufgabenliste.Models
         public string Beschreibung { get; set; }
         public string Loesung {  get; set; }
         public Verantwortlich Verantwortlich {  get; set; }
-        public string Status { get; set; }
+        public Status Status { get; set; }
     }
 }

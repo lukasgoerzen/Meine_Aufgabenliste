@@ -4,6 +4,8 @@
 
 @{
     ViewData["Title"] = "Meine Aufgabenliste";
+    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlich)).Cast<Verantwortlich>();
+    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
 }
 
 <title>@ViewData["Title"] - Meine Aufgabenliste</title>
@@ -20,8 +22,8 @@
 <div class="container mb-3">
     <div class="row">
         <div class="col align-self-center"
-        <form asp-action="CreateEditToDo">
-            <a href="@Url.Action("CreateToDo", "Offen")" class="btn btn-success">
+        <form>
+            <a asp-action="CreateEditTodo" asp-controller="Offen" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>
             </a>
         </form>
@@ -78,12 +80,15 @@
                             <div class="col">
                                 <small class="text-muted">
                                     <select class="form-select editable" name="Status" id="Status_Id">
-                                        <option hidden selected value="@toDo.Status">@toDo.Status</option>
-                                        <option value="Offen">Offen</option>
-                                        <option value="in Bearbeitung">in Bearbeitung</option>
-                                        <option value="Wartend">Wartend</option>
-                                        <option value="Abgeschlossen">Abgeschlossen</option>
-                                        <option value="Archiv">Archiv</option>
+                                        <option disabled value="">Bitte auswählen</option>
+                                        <option selected value="@toDo.Status">@toDo.Status</option>
+                                        @{ 
+                                            foreach (var status in alleStati) {
+                                                // überspringe gespeicherten Wert, um Dopplung zu verhindern
+                                                if (status.Equals(toDo.Status)) continue;
+                                                <option value="@status">@status</option>
+                                            }
+                                        }
                                     </select>
                                 </small>
                             </div>

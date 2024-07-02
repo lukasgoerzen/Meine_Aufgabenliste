@@ -33,6 +33,8 @@ namespace Meine_Aufgabenliste.Controllers {
 
             List<ToDo> ergebnisse = _toDoService.SearchToDos(bestehendeToDos, suchbegriff);
             ViewBag.ToDos = ergebnisse;
+
+            ViewBag.Suchebegriff = suchbegriff;
             return View("Results");
         }
     }

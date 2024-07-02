@@ -4,39 +4,9 @@
     "Kategorie": 0,
     "Schluesselwort": 2,
     "Aufgabe": "Zahlungstask erneut ausgefallen",
-    "Beschreibung": "Zahlungen laut autom. Mail von gestern Nacht ausgefallen\r\nJenny wei\u00DF Bescheid\r\nZahlungen sollen manuell durchgef\u00FChrt werden",
-    "Loesung": "Ticket erstellt, #123456",
+    "Beschreibung": "Jenny hat Mail geschrieben\r\nBla bla bla\r\nWarum schon wieder?\r\nIT-DLZ ist doof.",
+    "Loesung": "Kein Plan, was zu tun ist.",
     "Verantwortlich": 1,
-    "Status": "Wartend"
-  },
-  {
-    "Id": 2,
-    "Kategorie": 1,
-    "Schluesselwort": 3,
-    "Aufgabe": "Neue Version testen",
-    "Beschreibung": "FB I hat schon getestet\r\nWollen neue Version am 21.06. produktiv nehmen",
-    "Loesung": "Test in VIII 4 abschlie\u00DFen",
-    "Verantwortlich": 0,
-    "Status": "in Bearbeitung"
-  },
-  {
-    "Id": 3,
-    "Kategorie": 0,
-    "Schluesselwort": 2,
-    "Aufgabe": "Zahlungen wieder ausgefallen",
-    "Beschreibung": "Wieso nur?",
-    "Loesung": "Wei\u00DF man nicht.",
-    "Verantwortlich": 1,
-    "Status": "Offen"
-  },
-  {
-    "Id": 4,
-    "Kategorie": 0,
-    "Schluesselwort": 1,
-    "Aufgabe": "Schon wieder...",
-    "Beschreibung": "Zahlungsausfall",
-    "Loesung": "...",
-    "Verantwortlich": 0,
-    "Status": "in Bearbeitung"
+    "Status": 0
   }
 ]
