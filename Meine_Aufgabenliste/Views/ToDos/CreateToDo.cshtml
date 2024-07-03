@@ -1,11 +1,9 @@
-﻿@using Meine_Aufgabenliste.Models.Enums
-@using Meine_Aufgabenliste.Models.Extensions
-@model Meine_Aufgabenliste.Models.ToDo
-@{
+﻿@model Meine_Aufgabenliste.Models.ToDo
+@{/*
     var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
     var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
-    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlich)).Cast<Verantwortlich>();
-    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
+    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
+    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();*/
 }
 
 <!-- Formular mit allen Einträgen für neues ToDo -->
@@ -18,9 +16,11 @@
                         <select class="form-select" name="Kategorie" id="Kategorie" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
-                                foreach (var kategorie in alleKategorien) {
+                                /*
+                                 foreach (var kategorie in alleKategorien) {
                                     <option value="@kategorie">@kategorie</option>
                                 }
+                                */
                             }
                         </select>
                         <label for="Kategorie">Kategorie</label>
@@ -31,9 +31,11 @@
                         <select class="form-select" name="Schluesselwort" id="Schluesselwort" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
+                                /*
                                 foreach (var schluesselwort in alleSchluesselwoerter) {
                                     <option value="@schluesselwort">@schluesselwort</option>
                                 }
+                                */
                             }
                         </select>
                         <label for="Schluesselwort">Schlüsselwort</label>
@@ -65,15 +67,17 @@
             <div class="row">
                 <div class="col">
                     <div class="form-floating">
-                        <select class="form-select" name="Verantwortlich" id="Verantwortlich" aria-label="Floating label select example" required>
+                        <select class="form-select" name="Verantwortlicher" id="Verantwortlicher" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
+                                /*
                                 foreach (var verantwortlicher in alleVerantwortlichen) {
                                     <option value="@verantwortlicher">@verantwortlicher</option>
                                 }
+                                */
                             }
                         </select>
-                        <label for="Verantwortlich">Verantwortlich</label>
+                        <label for="Verantwortlicher">Verantwortlicher</label>
                     </div>
                 </div>
                 <div class="col-4 d-flex justify-content-center align-items-center">
@@ -84,9 +88,11 @@
                         <select class="form-select" name="Status" id="Status" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
+                                /*
                                 foreach (var status in alleStati) {
                                     <option value="@status">@status</option>
                                 }
+                                */
                             }
                         </select>
                         <label for="Status">Status</label>

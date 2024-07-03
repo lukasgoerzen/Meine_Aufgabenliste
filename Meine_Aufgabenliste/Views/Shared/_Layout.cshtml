@@ -22,19 +22,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-danger" asp-area="" asp-controller="Offen" asp-action="Index">Offen</a>
+                            <a class="nav-link text-danger" asp-area="" asp-controller="ToDos" asp-action="ToDos_Offen">Offen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning" asp-area="" asp-controller="InBearbeitung" asp-action="Index">In Bearbeitung</a>
+                            <a class="nav-link text-warning" asp-area="" asp-controller="ToDos" asp-action="ToDos_inBearbeitung">In Bearbeitung</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" asp-area="" asp-controller="Wartend" asp-action="Index">Wartend</a>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="ToDos" asp-action="ToDos_Wartend">Wartend</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-success" asp-area="" asp-controller="Abgeschlossen" asp-action="Index">Abgeschlossen</a>
+                            <a class="nav-link text-success" asp-area="" asp-controller="ToDos" asp-action="ToDos_Abgeschlossen">Abgeschlossen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Archiv" asp-action="Index">Archiv</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="ToDos" asp-action="ToDos_Archiv">Archiv</a>
                         </li>
                     </ul>
                     <!--<p class="nav navbar-text text-light">@User.Identity?.Name</p>-->

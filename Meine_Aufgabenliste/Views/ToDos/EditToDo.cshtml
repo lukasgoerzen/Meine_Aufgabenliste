@@ -1,11 +1,9 @@
-﻿@using Meine_Aufgabenliste.Models.Enums
-@using Meine_Aufgabenliste.Models.Extensions
-@model Meine_Aufgabenliste.Models.ToDo
+﻿@model Meine_Aufgabenliste.Models.ToDo
 @{ 
     var toDo = ViewBag.toDo as ToDo; 
     var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
     var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
-    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlich)).Cast<Verantwortlich>();
+    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
     var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
 }
 
@@ -76,11 +74,11 @@
                     <div class="form-floating">
                         <select class="form-select" name="Verantwortlich" id="Verantwortlich" aria-label="Floating label select example" required>
                             <option disabled value="">Bitte auswählen</option>
-                            <option selected value="@toDo.Verantwortlich">@toDo.Verantwortlich</option>
+                            <option selected value="@toDo.Verantwortlicher">@toDo.Verantwortlicher</option>
                             @{
                                 foreach (var verantwortlicher in alleVerantwortlichen) {
                                     // überspringe gespeicherten Wert, um Dopplung zu verhindern
-                                    if (verantwortlicher.Equals(toDo.Verantwortlich)) continue;
+                                    if (verantwortlicher.Equals(toDo.Verantwortlicher)) continue;
 
                                     <option value="@verantwortlicher">@verantwortlicher</option>
                                 }

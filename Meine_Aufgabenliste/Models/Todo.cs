@@ -1,6 +1,4 @@
-﻿using Meine_Aufgabenliste.Models.Enums;
-
-namespace Meine_Aufgabenliste.Models
+﻿namespace Meine_Aufgabenliste.Models
 {
     public class ToDo {
 
@@ -10,7 +8,7 @@ namespace Meine_Aufgabenliste.Models
         public string Aufgabe {  get; set; }
         public string Beschreibung { get; set; }
         public string Loesung {  get; set; }
-        public Verantwortlich Verantwortlich {  get; set; }
+        public Verantwortlicher Verantwortlicher {  get; set; }
         public Status Status { get; set; }
     }
 }

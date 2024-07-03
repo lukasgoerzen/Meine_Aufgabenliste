@@ -32,7 +32,7 @@ namespace Meine_Aufgabenliste.Controllers.Services {
                 toDo.Aufgabe != null && toDo.Aufgabe.Contains(suchbegriff, StringComparison.OrdinalIgnoreCase) ||
                 toDo.Beschreibung != null && toDo.Beschreibung.Contains(suchbegriff, StringComparison.OrdinalIgnoreCase) ||
                 toDo.Loesung != null && toDo.Loesung.Contains(suchbegriff, StringComparison.OrdinalIgnoreCase) ||
-                toDo.Verantwortlich != null && toDo.Verantwortlich.ToString().Contains(suchbegriff, StringComparison.OrdinalIgnoreCase)
+                toDo.Verantwortlicher != null && toDo.Verantwortlicher.ToString().Contains(suchbegriff, StringComparison.OrdinalIgnoreCase)
             ).ToList();
         }
     }
