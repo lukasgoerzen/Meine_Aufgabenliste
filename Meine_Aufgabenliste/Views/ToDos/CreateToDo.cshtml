@@ -1,4 +1,4 @@
-﻿@model Meine_Aufgabenliste.Models.ToDo
+﻿@model ToDo
 @{/*
     var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
     var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
@@ -13,14 +13,12 @@
             <div class="row">
                 <div class="col align-self-start">
                     <div class="form-floating">
-                        <select class="form-select" name="Kategorie" id="Kategorie" aria-label="Floating label select example" required>
+                        <select asp-for="Kategorie" class="form-select" name="Kategorie" id="Kategorie" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
-                                /*
-                                 foreach (var kategorie in alleKategorien) {
-                                    <option value="@kategorie">@kategorie</option>
+                                foreach (var kategorie in ViewBag.Kategorien) {
+                                    <option value="@kategorie.Id">@kategorie.Name</option>
                                 }
-                                */
                             }
                         </select>
                         <label for="Kategorie">Kategorie</label>
@@ -28,14 +26,12 @@
                 </div>
                 <div class="col align-self-center">
                     <div class="form-floating">
-                        <select class="form-select" name="Schluesselwort" id="Schluesselwort" aria-label="Floating label select example" required>
+                        <select asp-for="Schluesselwort" class="form-select" name="Schluesselwort" id="Schluesselwort" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
-                                /*
-                                foreach (var schluesselwort in alleSchluesselwoerter) {
-                                    <option value="@schluesselwort">@schluesselwort</option>
+                                foreach (var schluesselwort in ViewBag.Schluesselwoerter) {
+                                    <option value="@schluesselwort.Id">@schluesselwort.Name</option>
                                 }
-                                */
                             }
                         </select>
                         <label asp-for="Schluesselwort">Schlüsselwort</label>

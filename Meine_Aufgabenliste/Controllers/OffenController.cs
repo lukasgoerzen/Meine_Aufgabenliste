@@ -1,13 +1,10 @@
-﻿using Meine_Aufgabenliste.Controllers.Services;
-using Meine_Aufgabenliste.Models;
+﻿using Meine_Aufgabenliste.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace Meine_Aufgabenliste.Controllers {
     public class OffenController : Controller {
-
-        private readonly IToDoService _toDoService;
-
+        /*
         public OffenController(IToDoService toDoService) {
             _toDoService = toDoService;
         }
@@ -106,6 +103,6 @@ namespace Meine_Aufgabenliste.Controllers {
             }
 
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }

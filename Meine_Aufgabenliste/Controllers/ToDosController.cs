@@ -1,23 +1,20 @@
-﻿using Meine_Aufgabenliste.Controllers.Services;
-using Meine_Aufgabenliste.Models;
+﻿using Meine_Aufgabenliste.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace Meine_Aufgabenliste.Controllers {
     public class ToDosController : Controller {
 
-        private readonly IToDoService _toDoService;
-
-        public ToDosController(IToDoService toDoService) {
-            _toDoService = toDoService;
-        }
-
-
         public IActionResult Index() {
 
             //Lade gespeicherte ToDos
-            var bestehendeToDos = _toDoService.LoadToDos();
-            ViewBag.ToDos = bestehendeToDos;
+            List<ToDo> toDos = new List<ToDo>();
+
+            using (var context = new ApplicationDbContext()) {
+                toDos = context.ToDos.ToList();
+            }
+
+            ViewBag.ToDos = toDos;
 
             return View();
         }
@@ -53,31 +50,64 @@ namespace Meine_Aufgabenliste.Controllers {
         }
 
         public IActionResult CreateToDo() {
+
+            // Lade gespeicherte ToDos
+            /*
+                List<ToDo> toDos = new List<ToDo>();
+
+                using (var context = new ApplicationDbContext()) {
+                    toDos = context.ToDos.ToList();
+                }
+
+                ViewBag.ToDos = toDos;
+            */
+
+            List<Kategorie> kategorien = new List<Kategorie>();
+            List<Schluesselwort> schluesselwoerter = new List<Schluesselwort>();
+
+            using (var context = new ApplicationDbContext()) {
+                kategorien = context.Kategorie.ToList();
+                schluesselwoerter = context.Schluesselwort.ToList();
+            }
+
+            ViewBag.Kategorien = kategorien;
+            ViewBag.Schluesselwoerter = schluesselwoerter;
+
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult AddToDo(ToDo toDo) {
 
-            // Lade gespeicherte ToDos
-            var bestehendeToDos =_toDoService.LoadToDos();
+            //Lade gespeicherte ToDos
+            List<ToDo> toDos = new List<ToDo>();
+
+            using (var context = new ApplicationDbContext()) {
+                toDos = context.ToDos.ToList();
+            }
 
             // Hinzufügen der neuen ToDos
-            bestehendeToDos.Add(toDo);
+            toDos.Add(toDo);
 
             // Speicher aktualisierte Liste in JSON-Datei
             _toDoService.SaveToDos(bestehendeToDos);
 
             return RedirectToAction("Index");
-        }
+        }*/
 
         public IActionResult CreateEditToDo(int? id) {
-            /*
-                // Lade gespeicherte ToDos
-                var bestehendeToDos = _toDoService.LoadToDos();
 
-                // Erstelle neues ToDo
-                if (id == null) {
+            // Lade gespeicherte ToDos
+            List<ToDo> toDos = new List<ToDo>();
+
+            using (var context = new ApplicationDbContext()) {
+                toDos = context.ToDos.ToList();
+            }
+
+            ViewBag.ToDos = toDos;
+
+            // Erstelle neues ToDo
+            /*if (id == null) {
                     int neueId = bestehendeToDos.Count + 1; // Id für neues ToDo
                     ViewBag.NeueId = neueId;
                     return View("CreateToDo");
@@ -94,12 +124,12 @@ namespace Meine_Aufgabenliste.Controllers {
 
 				    ViewBag.ToDo = toDo;
 				    return View("EditToDo");
-			    }
-            */
-            return View();
+			    }*/
+            
+            return View("CreateToDo");
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult UpdateToDo(ToDo toDo) {
 
             // Lade gespeicherte ToDos
@@ -142,6 +172,6 @@ namespace Meine_Aufgabenliste.Controllers {
             }
 
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Meine_Aufgabenliste.ViewModels {
     public class SchluesselwortViewModel {
-        public List<Schluesselwort> Schluesselwort { get; set; }
-        public List<Kategorie> Kategorie { get; set; }
+        public required List<Schluesselwort> Schluesselwort { get; set; }
+        public required List<Kategorie> Kategorie { get; set; }
     }
 }

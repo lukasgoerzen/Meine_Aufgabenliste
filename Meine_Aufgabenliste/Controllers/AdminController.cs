@@ -7,11 +7,13 @@ using System.Linq;
 
 namespace Meine_Aufgabenliste.Controllers {
     public class AdminController : Controller {
-        private readonly ApplicationDbContext _context;
+        /*
+            private readonly ApplicationDbContext _context;
 
-        public AdminController(ApplicationDbContext context) {
-            _context = context;
-        }
+            public AdminController(ApplicationDbContext context) {
+                _context = context;
+            }
+        */
 
         public IActionResult BenutzerVerwaltung() {
 
@@ -20,34 +22,91 @@ namespace Meine_Aufgabenliste.Controllers {
 
         public IActionResult KategorienVerwaltung() {
 
-            var kategorien = _context.Kategorie.ToList();
-            return View("Kategorien/Verwaltung", kategorien);
+            List<Kategorie> kategorien = new List<Kategorie>();
+
+            using (var context = new ApplicationDbContext()) {
+                if (context.Kategorie != null) {
+                    kategorien = context.Kategorie.ToList();
+                }
+            }
+
+            ViewBag.Kategorien = kategorien;
+
+            return View("Kategorien/Verwaltung");
         }
 
         [HttpPost]
         public IActionResult ErstelleKategorie(Kategorie kategorie) {
 
-            if (ModelState.IsValid) {
-                _context.Kategorie.Add(kategorie);
-                _context.SaveChanges();
-                return RedirectToAction("KategorienVerwaltung");
+            using (var context = new ApplicationDbContext()) {
+                if (ModelState.IsValid) {
+                    context.Add(kategorie);
+                    context.SaveChanges();
+                }
             }
-            return RedirectToAction("KategorienVerwaltung", kategorie);
+
+            return RedirectToAction("KategorienVerwaltung");
         }
 
         public IActionResult SchluesselwoerterVerwaltung() {
 
-            var schluesselwoerter = _context.Schluesselwort.Include(s => s.Kategorie).ToList();
-            return View("Schluesselwoerter/Verwaltung", schluesselwoerter);
+            /*
+                List<Schluesselwort> schluesselwoerter = new List<Schluesselwort>();
+                List<Kategorie> kategorien = new List<Kategorie>();
+
+                using (var context = new ApplicationDbContext()) {
+                    if (context.Schluesselwort != null) {
+                        schluesselwoerter = context.Schluesselwort.ToList();
+                        kategorien = context.Kategorie.ToList();
+                    }
+
+
+                    var viewModel = new SchluesselwortViewModel {
+                        Schluesselwort = schluesselwoerter,
+                        Kategorie = kategorien
+                    };
+
+                    ViewBag.SchluesselwortViewModel = viewModel;
+                }
+            */
+            List<Kategorie> kategorien = new List<Kategorie>();
+            using (var context = new ApplicationDbContext()) {
+                kategorien = context.Kategorie.ToList();
+            }
+            ViewBag.Kategorien = kategorien;
+
+            List<Schluesselwort> schluesselwoerter = new List<Schluesselwort>();
+            using (var context = new ApplicationDbContext()) {
+                schluesselwoerter = context.Schluesselwort.ToList();
+            }
+            ViewBag.Schluesselwoerter = schluesselwoerter;
+
+            return View("Schluesselwoerter/Verwaltung");
         }
+    
 
         [HttpPost]
         public IActionResult ErstelleSchluesselwort(Schluesselwort schluesselwort) {
 
-            using (var context = _context) {
-                context.Add(schluesselwort);
-                context.SaveChanges();
+            using (var context = new ApplicationDbContext()) {
+                using (var transaction = context.Database.BeginTransaction()) {
+                    try {
+                        schluesselwort.Kategorie = context.Kategorie.FirstOrDefault(k => k.Id == schluesselwort.KategorieId);
+
+                        context.Add(schluesselwort);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex) {
+                        transaction.Rollback();
+                        ModelState.AddModelError("", "Fehler beim Speichern des Schluesselworts.");
+
+                        return View("Schluesselwoerter/Verwaltung");
+                    }
+                }
             }
+            
             return RedirectToAction("SchluesselwoerterVerwaltung");
         }
 

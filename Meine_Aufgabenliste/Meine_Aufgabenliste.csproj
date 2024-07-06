@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Controllers\OffenController.cs.disabled" />
-    <None Remove="Controllers\ToDosController.cs.disabled" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Controllers\OffenController.cs.disabled" />
-    <Compile Include="Controllers\ToDosController.cs.disabled" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.5" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.4" />

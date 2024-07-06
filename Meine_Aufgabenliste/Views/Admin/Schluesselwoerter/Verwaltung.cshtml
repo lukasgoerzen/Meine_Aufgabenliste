@@ -8,8 +8,11 @@
         <label>Neues Schlüsselwort</label>
     </div>
     <div class="form-floating col-4">
-        <select asp-for="Kategorie.Name" class="form-select" name="Kategorie" aria-label="Floating label select example" required>
+        <select asp-for="KategorieId" class="form-select" name="Kategorie" aria-label="Floating label select example" required>
             <option selected disabled value="">Bitte auswählen</option>
+            @foreach (var kategorie in ViewBag.Kategorien) {
+                <option value="@kategorie.Id">@kategorie.Name</option>
+            }
         </select>
         <label>Übergeordnete Kategorie</label>
     </div>
@@ -36,7 +39,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Schluesselwort schluesselwort in ViewBag.SchluesselwortViewModel) {
+        @foreach (var schluesselwort in ViewBag.Schluesselwoerter) {
             <tr>
                 <td>
                     @schluesselwort.Id
