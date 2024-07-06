@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Meine Aufgabenliste";
-    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
-    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
+    //var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
+    // var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
 }
 
 <title>@ViewData["Title"] - Meine Aufgabenliste</title>
@@ -81,12 +81,14 @@
                                             <option disabled value="">Bitte auswählen</option>
                                             <option selected value="@toDo.Status">@toDo.Status</option>
                                             @{
+                                                /*
                                                 foreach (var status in alleStati) {
                                                     // überspringe gespeicherten Wert, um Dopplung zu verhindern
                                                     if (status.Equals(toDo.Status))
                                                         continue;
                                                     <option value="@status">@status</option>
                                                 }
+                                                */
                                             }
                                         </select>
                                     </small>

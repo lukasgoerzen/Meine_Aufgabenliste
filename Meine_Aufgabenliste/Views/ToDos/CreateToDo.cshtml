@@ -5,7 +5,7 @@
     var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
     var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();*/
 }
-
+<link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 <!-- Formular mit allen Einträgen für neues ToDo -->
 <form asp-action="AddToDo" method="post" class="needs-validation" novalidate>
     <div class="card text-center container bg-dark">
@@ -38,29 +38,29 @@
                                 */
                             }
                         </select>
-                        <label for="Schluesselwort">Schlüsselwort</label>
+                        <label asp-for="Schluesselwort">Schlüsselwort</label>
                     </div>
                 </div>
                 <div class="col align-self-end">
                     <div class="form-floating">
-                        <input readonly type="number" class="form-control" name="Id" id="Id" placeholder="Id" value="@ViewBag.NeueId" required />
-                        <label for="Id">Id</label>
+                        <input asp-for="Id" readonly type="number" class="form-control" name="Id" id="Id" placeholder="Id" value="@ViewBag.NeueId" required />
+                        <label asp-for="Id">Id</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-body bg-dark bg-gradient mb-3">
             <div class="form-floating">
-                <input class="form-control mb-3" placeholder="Aufgabe" name="Aufgabe" id="Aufgabe" required />
-                <label for="Aufgabe">Aufgabe</label>
+                <input asp-for="Aufgabe" class="form-control mb-3" placeholder="Aufgabe" name="Aufgabe" id="Aufgabe" required autocomplete="off" />
+                <label asp-for="Aufgabe">Aufgabe</label>
             </div>
             <div class="form-floating">
-                <textarea class="form-control mb-3" placeholder="Beschreibung" name="Beschreibung" id="Beschreibung" style="height: 100px" required></textarea>
-                <label for="Beschreibung">Beschreibung</label>
+                <textarea asp-for="Beschreibung" class="form-control mb-3" placeholder="Beschreibung" name="Beschreibung" id="Beschreibung" required autocomplete="off"></textarea>
+                <label asp-for="Beschreibung">Beschreibung</label>
             </div>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Lösung" name="Loesung" id="Loesung" style="height: 100px"></textarea>
-                <label for="Loesung">Lösung</label>
+                <textarea asp-for="Loesung" class="form-control" placeholder="Lösung" name="Loesung" id="Loesung" autocomplete="off"></textarea>
+                <label asp-for="Loesung">Lösung</label>
             </div>
         </div>
         <div class="card-footer text-muted container bg-dark mb-3">

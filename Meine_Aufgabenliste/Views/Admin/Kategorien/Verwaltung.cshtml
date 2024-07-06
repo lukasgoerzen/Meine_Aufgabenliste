@@ -1,0 +1,45 @@
+﻿@model Kategorie
+
+<h1 class="text-center mb-5">Kategorien</h1>
+
+<form asp-controller="Admin" asp-action="ErstelleKategorie" class="row d-flex align-items-center mb-5" method="post">
+    <div class="form-floating col-4">
+        <input asp-for="Name" class="form-control" placeholder="Neue Kategorie" required autocomplete="off" />
+        <label>Neue Kategorie</label>
+    </div>
+    <div class="col-4">
+        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                # Id
+            </th>
+            <th>
+                Kategorie
+            </th>
+            <th>
+                Aktionen
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Kategorie kategorie in ViewBag.Kategorien) {
+            <tr>
+                <td>
+                    @kategorie.Id
+                </td>
+                <td>
+                    @kategorie.Name
+                </td>
+                <td>
+                    <button disabled>Bearbeiten</button>
+                    <button disabled>Löschen</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

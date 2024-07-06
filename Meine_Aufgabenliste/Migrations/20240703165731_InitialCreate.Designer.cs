@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meine_Aufgabenliste.Migrations
 {
-    [DbContext(typeof(ToDoContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240703165731_InitialCreate")]
     partial class InitialCreate
     {

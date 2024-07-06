@@ -1,3 +1,4 @@
-﻿.table-hover tbody tr:hover {
-    background-color: #ffffff !important; /* Ihre gewünschte Hover-Farbe */
+﻿textarea#Beschreibung, textarea#Loesung {
+    min-height: 100px;
+    resize: none;
 }

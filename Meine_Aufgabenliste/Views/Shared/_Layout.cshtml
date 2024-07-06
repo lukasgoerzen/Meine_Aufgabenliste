@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Meine_Aufgabenliste</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Meine_Aufgabenliste.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -37,7 +38,20 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="ToDos" asp-action="ToDos_Archiv">Archiv</a>
                         </li>
                     </ul>
-                    <!--<p class="nav navbar-text text-light">@User.Identity?.Name</p>-->
+                    <ul class="nav nav-pills">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin-Verwaltung</a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="Admin" asp-action="KategorienVerwaltung" class="dropdown-item">Kategorien</a></li>
+                                <li><a asp-controller="Admin" asp-action="SchluesselwoerterVerwaltung" class="dropdown-item">Schlüsselwörter</a></li>
+                                <li><a asp-controller="Admin" asp-action="VerantwortlicheVerwaltung" class="dropdown-item">Verantwortliche</a></li>
+                                <li><a asp-controller="Admin" asp-action="StatusVerwaltung" class="dropdown-item">Status</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a asp-controller="Admin" asp-action="BenutzerVerwaltung" class="dropdown-item">Benutzer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="nav navbar-text text-light">@User.Identity?.Name</p>
                 </div>
             </div>
         </nav>

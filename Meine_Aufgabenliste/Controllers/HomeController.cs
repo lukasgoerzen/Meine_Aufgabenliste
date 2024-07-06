@@ -1,4 +1,3 @@
-using Meine_Aufgabenliste.Controllers.Services;
 using Meine_Aufgabenliste.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,11 +5,9 @@ using System.Diagnostics;
 namespace Meine_Aufgabenliste.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
-        private readonly IToDoService _toDoService;
 
-        public HomeController(ILogger<HomeController> logger, IToDoService toDoService) {
+        public HomeController(ILogger<HomeController> logger) {
             _logger = logger;
-            _toDoService = toDoService;
         }
 
         public IActionResult Index() {
@@ -26,6 +23,7 @@ namespace Meine_Aufgabenliste.Controllers {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        /*
         [HttpGet]
         public IActionResult ShowResults(string suchbegriff) {
             // Lade alle gespeicherten ToDos
@@ -37,5 +35,6 @@ namespace Meine_Aufgabenliste.Controllers {
             ViewBag.Suchebegriff = suchbegriff;
             return View("Results");
         }
+        */
     }
 }
