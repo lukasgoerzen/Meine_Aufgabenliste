@@ -5,7 +5,7 @@ namespace Meine_Aufgabenliste.Models {
         public int Id { get; set; }
         [Required(ErrorMessage = "Eine Kategorie ist erforderlich.")]
         public int KategorieId { get; set; }
-        public Kategorie Kategorie { get; set; }
+        //public Kategorie Kategorie { get; set; }
         [Required(ErrorMessage = "Der Name des Schlüsselworts ist erforderlich.")]
         public string Name { get; set; }
     }

@@ -7,6 +7,8 @@ namespace Meine_Aufgabenliste.Models {
         public DbSet<ToDo> ToDos { get; set; }
         public DbSet<Kategorie> Kategorie { get; set; }
         public DbSet<Schluesselwort> Schluesselwort { get; set; }
+        public DbSet<Verantwortlicher> Verantwortlicher { get; set; }
+        public DbSet<Status> Status { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) { 
             var builder = new ConfigurationBuilder()

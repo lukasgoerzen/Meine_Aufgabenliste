@@ -50,25 +50,6 @@ namespace Meine_Aufgabenliste.Controllers {
 
         public IActionResult SchluesselwoerterVerwaltung() {
 
-            /*
-                List<Schluesselwort> schluesselwoerter = new List<Schluesselwort>();
-                List<Kategorie> kategorien = new List<Kategorie>();
-
-                using (var context = new ApplicationDbContext()) {
-                    if (context.Schluesselwort != null) {
-                        schluesselwoerter = context.Schluesselwort.ToList();
-                        kategorien = context.Kategorie.ToList();
-                    }
-
-
-                    var viewModel = new SchluesselwortViewModel {
-                        Schluesselwort = schluesselwoerter,
-                        Kategorie = kategorien
-                    };
-
-                    ViewBag.SchluesselwortViewModel = viewModel;
-                }
-            */
             List<Kategorie> kategorien = new List<Kategorie>();
             using (var context = new ApplicationDbContext()) {
                 kategorien = context.Kategorie.ToList();
@@ -84,14 +65,13 @@ namespace Meine_Aufgabenliste.Controllers {
             return View("Schluesselwoerter/Verwaltung");
         }
     
-
         [HttpPost]
         public IActionResult ErstelleSchluesselwort(Schluesselwort schluesselwort) {
 
             using (var context = new ApplicationDbContext()) {
                 using (var transaction = context.Database.BeginTransaction()) {
                     try {
-                        schluesselwort.Kategorie = context.Kategorie.FirstOrDefault(k => k.Id == schluesselwort.KategorieId);
+                        //schluesselwort.Kategorie = context.Kategorie.FirstOrDefault(k => k.Id == schluesselwort.KategorieId);
 
                         context.Add(schluesselwort);
                         context.SaveChanges();
@@ -112,12 +92,61 @@ namespace Meine_Aufgabenliste.Controllers {
 
         public IActionResult VerantwortlicheVerwaltung() {
 
+            List<Verantwortlicher> verantwortliche = new List<Verantwortlicher>();
+
+            using (var context = new ApplicationDbContext()) {
+                if (context.Verantwortlicher != null) {
+                    verantwortliche = context.Verantwortlicher.ToList();
+                }
+                else {
+                    Console.WriteLine("DbSet<Verantwortlicher> is null");
+                }
+            }
+
+            ViewBag.Verantwortliche = verantwortliche;
+
             return View("Verantwortliche/Verwaltung");
+        }
+
+        [HttpPost]
+        public IActionResult ErstelleVerantwortlicher(Verantwortlicher verantwortlicher) {
+
+            using (var context = new ApplicationDbContext()) {
+                if (ModelState.IsValid) {
+                    context.Add(verantwortlicher);
+                    context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("VerantwortlicheVerwaltung");
         }
 
         public IActionResult StatusVerwaltung() {
 
+            List<Status> status = new List<Status>();
+
+            using (var context = new ApplicationDbContext()) {
+                if (context.Status != null) {
+                    status = context.Status.ToList();
+                }
+            }
+
+            ViewBag.Status = status;
+
             return View("Status/Verwaltung");
+        }
+
+        [HttpPost]
+        public IActionResult ErstelleStatus(Status status) {
+
+            using (var context = new ApplicationDbContext()) {
+                if (ModelState.IsValid) {
+                    context.Add(status);
+                    context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("StatusVerwaltung");
         }
     }
 }

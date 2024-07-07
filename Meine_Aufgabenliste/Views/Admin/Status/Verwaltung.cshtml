@@ -1,1 +1,45 @@
-﻿<h1>Status</h1>
+﻿@model Status
+
+<h1 class="text-center mb-5">Status</h1>
+
+<form asp-controller="Admin" asp-action="ErstelleStatus" class="row d-flex align-items-center mb-5" method="post">
+    <div class="form-floating col-4">
+        <input asp-for="Name" class="form-control" placeholder="Neuer Status" required autocomplete="off" />
+        <label>Neuer Status</label>
+    </div>
+    <div class="col-4">
+        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                # Id
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Aktionen
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Status status in ViewBag.Status) {
+            <tr>
+                <td>
+                    @status.Id
+                </td>
+                <td>
+                    @status.Name
+                </td>
+                <td>
+                    <button disabled>Bearbeiten</button>
+                    <button disabled>Löschen</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
