@@ -1,14 +1,14 @@
-﻿@model Meine_Aufgabenliste.Models.ToDo
-@{ 
-    var toDo = ViewBag.toDo as ToDo; 
-    var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
-    var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
-    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
-    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
+﻿@model ToDo
+@{
+    var toDo = ViewBag.ToDo;
+    var kategorien = ViewBag.Kategorien;
+    var schluesselwoerter = ViewBag.Schluesselwoerter;
+    var verantwortliche = ViewBag.Verantwortliche;
+    var status = ViewBag.Status;
 }
 
 <!-- Formular mit allen Einträgen für neues ToDo -->
-<form asp-action="UpdateToDo" method="post" class="needs-validation" novalidate>
+<form asp-action="" method="post" class="needs-validation" novalidate>
     <div class="card text-center container bg-dark">
         <div class="card-header bg-dark mb-3 mt-3">
             <div class="row">
@@ -16,13 +16,13 @@
                     <div class="form-floating">
                         <select class="form-select" name="Kategorie" id="Kategorie" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
-                            <option selected value="@toDo.Kategorie">@toDo.Kategorie</option>
+                            <option selected value="@toDo.Kategorie.Id">@toDo.Kategorie.Name</option>
                             @{
-                                foreach(var kategorie in alleKategorien) {
+                                foreach(var kategorie in kategorien) {
                                     // überspringe gespeicherten Wert, um Dopplung zu verhindern
-                                    if (kategorie.Equals(toDo.Kategorie)) continue;
+                                    if (kategorie.Id == toDo.Kategorie.Id) continue;
 
-                                    <option value="@kategorie">@kategorie</option>
+                                    <option value="@kategorie.Id">@kategorie.Name</option>
                                 }
                             }
                         </select>
@@ -33,13 +33,13 @@
                     <div class="form-floating">
                         <select class="form-select" name="Schluesselwort" id="Schluesselwort" aria-label="Floating label select example" required>
                             <option disabled value="">Bitte auswählen</option>
-                            <option selected value="@toDo.Schluesselwort">@toDo.Schluesselwort</option>
+                            <option selected value="@toDo.Schluesselwort.Id">@toDo.Schluesselwort.Name</option>
                             @{
-                                foreach (var schluesselwort in alleSchluesselwoerter) {
+                                foreach (var schluesselwort in schluesselwoerter) {
                                     // überspringe gespeicherten Wert, um Dopplung zu verhindern
-                                    if (schluesselwort.Equals(toDo.Schluesselwort)) continue;
+                                    if (schluesselwort.Id == toDo.Schluesselwort.Id) continue;
 
-                                    <option value="@schluesselwort">@schluesselwort</option>
+                                    <option value="@schluesselwort.Id">@schluesselwort.Name</option>
                                 }
                             }
                         </select>
@@ -74,13 +74,13 @@
                     <div class="form-floating">
                         <select class="form-select" name="Verantwortlich" id="Verantwortlich" aria-label="Floating label select example" required>
                             <option disabled value="">Bitte auswählen</option>
-                            <option selected value="@toDo.Verantwortlicher">@toDo.Verantwortlicher</option>
+                            <option selected value="@toDo.Verantwortlicher.Id">@toDo.Verantwortlicher.Name</option>
                             @{
-                                foreach (var verantwortlicher in alleVerantwortlichen) {
+                                foreach (var verantwortlicher in verantwortliche) {
                                     // überspringe gespeicherten Wert, um Dopplung zu verhindern
-                                    if (verantwortlicher.Equals(toDo.Verantwortlicher)) continue;
+                                    if (verantwortlicher.Id == toDo.Verantwortlicher.Id) continue;
 
-                                    <option value="@verantwortlicher">@verantwortlicher</option>
+                                    <option value="@verantwortlicher.Id">@verantwortlicher.Name</option>
                                 }
                             }
                         </select>
@@ -94,13 +94,13 @@
                     <div class="form-floating">
                         <select class="form-select" name="Status" id="Status" aria-label="Floating label select example" required>
                             <option disabled value="">Bitte auswählen</option>
-                            <option selected value="@toDo.Status">@toDo.Status</option>
+                            <option selected value="@toDo.Status.Id">@toDo.Status.Name</option>
                             @{
-                                foreach (var status in alleStati) {
+                                foreach (var this_status in status) {
                                     // überspringe gespeicherten Wert, um Dopplung zu verhindern
-                                    if (status.Equals(toDo.Status)) continue;
+                                    if (this_status.Id == toDo.Status.Id) continue;
 
-                                    <option value="@status">@status</option>
+                                    <option value="@this_status.Id">@this_status.Name</option>
                                 }
                             }
                         </select>

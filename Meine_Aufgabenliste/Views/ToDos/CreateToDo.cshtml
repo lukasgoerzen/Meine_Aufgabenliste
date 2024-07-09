@@ -1,19 +1,14 @@
 ﻿@model ToDo
-@{/*
-    var alleKategorien = Enum.GetValues(typeof(Kategorie)).Cast<Kategorie>();
-    var alleSchluesselwoerter = Enum.GetValues(typeof(Schluesselwort)).Cast<Schluesselwort>();
-    var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
-    var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();*/
-}
+
 <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 <!-- Formular mit allen Einträgen für neues ToDo -->
-<form asp-action="AddToDo" method="post" class="needs-validation" novalidate>
+<form asp-action="CreateToDo" method="post" class="needs-validation" novalidate>
     <div class="card text-center container bg-dark">
         <div class="card-header bg-dark mb-3 mt-3">
             <div class="row">
                 <div class="col align-self-start">
                     <div class="form-floating">
-                        <select asp-for="Kategorie" class="form-select" name="Kategorie" id="Kategorie" aria-label="Floating label select example" required>
+                        <select asp-for="KategorieId" class="form-select" id="Kategorie" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
                                 foreach (var kategorie in ViewBag.Kategorien) {
@@ -26,7 +21,7 @@
                 </div>
                 <div class="col align-self-center">
                     <div class="form-floating">
-                        <select asp-for="Schluesselwort" class="form-select" name="Schluesselwort" id="Schluesselwort" aria-label="Floating label select example" required>
+                        <select asp-for="SchluesselwortId" class="form-select" id="Schluesselwort" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
                                 foreach (var schluesselwort in ViewBag.Schluesselwoerter) {
@@ -34,43 +29,41 @@
                                 }
                             }
                         </select>
-                        <label asp-for="Schluesselwort">Schlüsselwort</label>
+                        <label for="Schluesselwort">Schlüsselwort</label>
                     </div>
                 </div>
                 <div class="col align-self-end">
                     <div class="form-floating">
-                        <input asp-for="Id" readonly type="number" class="form-control" name="Id" id="Id" placeholder="Id" value="@ViewBag.NeueId" required />
-                        <label asp-for="Id">Id</label>
+                        <input asp-for="Id" readonly type="number" class="form-control" id="Id" placeholder="Id" value="@ViewBag.nextId" required />
+                        <label for="Id">Id</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-body bg-dark bg-gradient mb-3">
             <div class="form-floating">
-                <input asp-for="Aufgabe" class="form-control mb-3" placeholder="Aufgabe" name="Aufgabe" id="Aufgabe" required autocomplete="off" />
-                <label asp-for="Aufgabe">Aufgabe</label>
+                <input asp-for="Aufgabe" class="form-control mb-3" placeholder="Aufgabe"id="Aufgabe" required autocomplete="off" />
+                <label for="Aufgabe">Aufgabe</label>
             </div>
             <div class="form-floating">
-                <textarea asp-for="Beschreibung" class="form-control mb-3" placeholder="Beschreibung" name="Beschreibung" id="Beschreibung" required autocomplete="off"></textarea>
-                <label asp-for="Beschreibung">Beschreibung</label>
+                <textarea asp-for="Beschreibung" class="form-control mb-3" placeholder="Beschreibung" id="Beschreibung" required autocomplete="off"></textarea>
+                <label for="Beschreibung">Beschreibung</label>
             </div>
             <div class="form-floating">
-                <textarea asp-for="Loesung" class="form-control" placeholder="Lösung" name="Loesung" id="Loesung" autocomplete="off"></textarea>
-                <label asp-for="Loesung">Lösung</label>
+                <textarea asp-for="Loesung" class="form-control" placeholder="Lösung" id="Loesung" autocomplete="off"></textarea>
+                <label for="Loesung">Lösung</label>
             </div>
         </div>
         <div class="card-footer text-muted container bg-dark mb-3">
             <div class="row">
                 <div class="col">
                     <div class="form-floating">
-                        <select class="form-select" name="Verantwortlicher" id="Verantwortlicher" aria-label="Floating label select example" required>
+                        <select asp-for="VerantwortlicherId" class="form-select" id="Verantwortlicher" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
-                                /*
-                                foreach (var verantwortlicher in alleVerantwortlichen) {
-                                    <option value="@verantwortlicher">@verantwortlicher</option>
+                                foreach (var verantwortlicher in ViewBag.Verantwortliche) {
+                                    <option value="@verantwortlicher.Id">@verantwortlicher.Name</option>
                                 }
-                                */
                             }
                         </select>
                         <label for="Verantwortlicher">Verantwortlicher</label>
@@ -81,14 +74,12 @@
                 </div>
                 <div class="col">
                     <div class="form-floating">
-                        <select class="form-select" name="Status" id="Status" aria-label="Floating label select example" required>
+                        <select asp-for="StatusId" class="form-select" id="Status" aria-label="Floating label select example" required>
                             <option selected disabled value="">Bitte auswählen</option>
                             @{
-                                /*
-                                foreach (var status in alleStati) {
-                                    <option value="@status">@status</option>
+                                foreach (var status in ViewBag.Status) {
+                                    <option value="@status.Id">@status.Name</option>
                                 }
-                                */
                             }
                         </select>
                         <label for="Status">Status</label>

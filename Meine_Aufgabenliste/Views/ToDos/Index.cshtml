@@ -1,9 +1,12 @@
-﻿@model List<Meine_Aufgabenliste.Models.ToDo>
+﻿@model List<ToDo>
 
 @{
     ViewData["Title"] = "Meine Aufgabenliste";
-    //var alleVerantwortlichen = Enum.GetValues(typeof(Verantwortlicher)).Cast<Verantwortlicher>();
-    // var alleStati = Enum.GetValues(typeof(Status)).Cast<Status>();
+    var color = ViewBag.Color;
+    var textcolor = "light";
+    if (color == "warning" || color == "light") {
+        textcolor = "dark";
+    }
 }
 
 <title>@ViewData["Title"] - Meine Aufgabenliste</title>
@@ -17,33 +20,34 @@
     </div>
 
     <!-- Button um neues ToDo zu erstellen-->
-    <div class="container mb-3">
+    <div class="container mb-5">
         <div class="row">
-            <div class="col align-self-center"
+            <div class="col align-self-center">
                 <form>
-                    <a asp-controller="ToDosController" asp-action="CreateEditTodo" class="btn btn-success">
-                        <i class="bi bi-plus-circle"></i>
+                    <a asp-controller="ToDos" asp-action="CreateTodo" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Neues ToDo erstellen
                     </a>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Erstelle ein Card-Objekt für jedes einzelne ToDo -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var toDo in ViewBag.ToDos) {
             <div class="col mb-4">
-                <form asp-action="CreateEditToDo" method="post">
+                <form asp-controller="ToDos" asp-action="EditToDo" method="post">
                     <div class="card h-100 shadow border-secondary">
-                        <div class=" card-header text-muted bg-danger bg-gradient">
-                            <div class="row text-light">
+                        <div class="card-header text-muted bg-@color bg-gradient">
+                            <div class="row text-@textcolor">
                                 <div class="col text-start">
                                     <small><i># @toDo.Id</i></small>
                                 </div>
                                 <div class="col text-start">
-                                    <small><i>@toDo.Schluesselwort</i></small>
+                                    <small><i>@toDo.Schluesselwort.Name</i></small>
                                 </div>
                                 <div class="col text-end">
-                                    <small><i>@toDo.Kategorie</i></small>
+                                    <small><i>@toDo.Kategorie.Name</i></small>
                                 </div>
                             </div>
                         </div>
@@ -58,37 +62,33 @@
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </div>
-
                                 </div>
                             </h5>
                             <p class="card-text">@toDo.Beschreibung</p>
-                            <hr><p class="card-text">@toDo.Loesung</p>
+                            <hr>
+                            <p class="card-text">@toDo.Loesung</p>
                         </div>
                         <div class="card-footer bg-dark bg-gradient">
                             <div class="row">
                                 <div class="col">
                                     <small class="text-muted">
+                                        Verantwortlicher:
                                         <select class="form-select editable" name="Verantwortlich" id="Verantwortlich">
-                                            <option hidden selected value="@toDo.Verantwortlich">@toDo.Verantwortlich</option>
-                                            <option value="Emilia">Emilia</option>
-                                            <option value="Lukas">Lukas</option>
+                                            <option hidden selected value="@toDo.VerantwortlicherId">@toDo.Verantwortlicher.Name</option>
+                                            @foreach (var verantwortlicher in ViewBag.Verantwortliche) {
+                                                <option value="@verantwortlicher.Id">@verantwortlicher.Name</option>
+                                            }
                                         </select>
                                     </small>
                                 </div>
                                 <div class="col">
                                     <small class="text-muted">
+                                        Status:
                                         <select class="form-select editable" name="Status" id="Status_Id">
                                             <option disabled value="">Bitte auswählen</option>
-                                            <option selected value="@toDo.Status">@toDo.Status</option>
-                                            @{
-                                                /*
-                                                foreach (var status in alleStati) {
-                                                    // überspringe gespeicherten Wert, um Dopplung zu verhindern
-                                                    if (status.Equals(toDo.Status))
-                                                        continue;
-                                                    <option value="@status">@status</option>
-                                                }
-                                                */
+                                            <option selected value="@toDo.StatusId">@toDo.Status.Name</option>
+                                            @foreach (var status in ViewBag.Status) {
+                                                <option value="@status.Id">@status.Name</option>
                                             }
                                         </select>
                                     </small>
@@ -97,14 +97,14 @@
                         </div>
                     </div>
 
-                    <!-- Versteckte Eingabefelder, damit die Daten per POST-Methode gesendet werden -->
+                    <!-- Versteckte Eingabefelder, damit die Daten per POST-Methode beim Editieren übernommen werden -->
                     <input type="hidden" name="Id" value="@toDo.Id" />
-                    <input type="hidden" name="Kategorie" value="@toDo.Kategorie" />
-                    <input type="hidden" name="Schluesselwort" value="@toDo.Schluesselwort" />
+                    <input type="hidden" name="Kategorie" value="@toDo.KategorieId" />
+                    <input type="hidden" name="Schluesselwort" value="@toDo.SchluesselwortId" />
                     <input type="hidden" name="Aufgabe" value="@toDo.Aufgabe" />
                     <input type="hidden" name="Beschreibung" value="@toDo.Beschreibung" />
                     <input type="hidden" name="Loesung" value="@toDo.Loesung" />
-                    <input type="hidden" name="Schluesselwort" value="@toDo.Schluesselwort" />
+                    <input type="hidden" name="Schluesselwort" value="@toDo.Schluesselwort.Name" />
                 </form>
             </div>
         }
