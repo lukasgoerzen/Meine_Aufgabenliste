@@ -1,9 +1,14 @@
 ﻿@model List<ToDo>
 
 @{
-    // !!!!!!!!!!!! Layout/Color Logik muss noch in Controller 
     ViewData["Title"] = "Meine Aufgabenliste";
     var color = ViewBag.Color;
+    /*if (ViewBag.ToDos.Status.Name == "Offen") {
+        color = "danger";
+    }
+    else if (ViewBag.ToDos.Status.Name == "in Bearbeitung") {
+        color = "warning";
+    }*/
     var textcolor = "light";
     if (color == "warning" || color == "light") {
         textcolor = "dark";

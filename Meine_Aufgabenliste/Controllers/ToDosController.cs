@@ -268,11 +268,69 @@ namespace Meine_Aufgabenliste.Controllers {
         public IActionResult UpdateToDo(ToDo toDo) {
 
             using (var context = new ApplicationDbContext()) {
-                 
+                ToDo oldToDo = context.ToDo.FirstOrDefault(t => t.Id == toDo.Id);
+
+                if (oldToDo != null) {
+                    oldToDo.Kategorie = context.Kategorie.FirstOrDefault(k => k.Id == toDo.KategorieId);
+                    oldToDo.Schluesselwort = context.Schluesselwort.FirstOrDefault(s => s.Id == toDo.SchluesselwortId);
+                    oldToDo.Aufgabe = toDo.Aufgabe;
+                    oldToDo.Beschreibung = toDo.Beschreibung;
+                    oldToDo.Loesung = toDo.Loesung;
+                    oldToDo.Verantwortlicher = context.Verantwortlicher.FirstOrDefault(v => v.Id == toDo.VerantwortlicherId);
+                    oldToDo.Status = context.Status.FirstOrDefault(st => st.Id == toDo.StatusId);
+
+                    context.SaveChanges();
+                }
+                else {
+                    // Fehlerbehandlung, falls das ToDo nicht gefunden wurde
+                    ModelState.AddModelError("", "ToDo nicht gefunden.");
+                    return View("Error");
+                }
             }
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult ZeigeSuchergebnisse(string suchbegriff) {
+
+            List<ToDo> toDos = new List<ToDo>();
+            // Suchbegriff in Kleinbuchstaben, um Groß- und Kleinschreibung ignorieren zu können
+            string suchbegriffKlein = suchbegriff.ToLower();
+
+            using (var context = new ApplicationDbContext()) {
+                toDos = context.ToDo
+                    .Include(toDo => toDo.Kategorie)
+                    .Include(toDo => toDo.Schluesselwort)
+                    .Include(toDo => toDo.Verantwortlicher)
+                    .Include(toDo => toDo.Status)
+                    .Where(toDo =>
+                        toDo.Aufgabe.ToLower().Contains(suchbegriffKlein) ||
+                        toDo.Beschreibung.ToLower().Contains(suchbegriffKlein) ||
+                        (toDo.Loesung != null && toDo.Loesung.ToLower().Contains(suchbegriffKlein)) ||
+                        toDo.Kategorie.Name.ToLower().Contains(suchbegriffKlein) ||
+                        toDo.Schluesselwort.Name.ToLower().Contains(suchbegriffKlein) ||
+                        toDo.Verantwortlicher.Name.ToLower().Contains(suchbegriffKlein) ||
+                        toDo.Status.Name.ToLower().Contains(suchbegriffKlein)
+                    )
+                    .ToList();
+
+                ViewBag.ToDos = toDos;
+                ViewBag.Kategorien = context.Kategorie.ToList();
+                ViewBag.Schluesselwoerter = context.Schluesselwort.ToList();
+                ViewBag.Verantwortliche = context.Verantwortlicher.ToList();
+                ViewBag.Status = context.Status.ToList();
+
+                // Bestimme die Farbe für jeden ToDo-Eintrag
+                foreach (var toDo in toDos) {
+                    //ViewBag.Color = toDo.Status.GetStatusFarbe(toDo.Status.Name);
+                }
+            }
+
+            return View("Results");
+        }
+
+
 
         /*[HttpPost]
         public IActionResult AddUpdateToDo(ToDo toDo) {
